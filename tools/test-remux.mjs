@@ -29,7 +29,7 @@ function probe(file) {
 
 function packets(file, selector) {
   return JSON.parse(run(ffprobe, ['-v', 'error', '-select_streams', selector, '-show_packets',
-    '-show_entries', 'packet=pts_time,dts_time,duration_time,size,data_hash,flags',
+    '-show_entries', 'packet=pts_time,dts_time,size,data_hash,flags',
     '-show_data_hash', 'sha256', '-of', 'json', file])).packets;
 }
 
@@ -68,15 +68,23 @@ function presentationEnd(sourcePackets, track, label) {
   assert.ok(sourcePackets.length > 0, `${label}: source has no packets`);
   return Math.max(...sourcePackets.map((packet, index) => {
     const pts = Number(packet.pts_time);
-    // Older FFprobe versions omit duration_time for fragmented MP4 packets.
-    // The source MP4 sample table still carries their exact duration in ticks;
-    // FFprobe PTS retains any edit-list/timeline offset for presentation end.
-    const duration = packet.duration_time == null
-      ? track.samples[index].duration / timescale : Number(packet.duration_time);
-    assert.ok(Number.isFinite(pts) && Number.isFinite(duration) && duration >= 0,
+    // FFprobe may omit packet duration or infer AAC frame padding differently.
+    // Use the exact source MP4 duration ticks and FFprobe's real presentation
+    // timestamps, which retain any edit-list/timeline offset.
+    const duration = track.samples[index].duration / timescale;
+    assert.ok(Number.isFinite(pts) && Number.isFinite(duration) && duration > 0,
       `${label}: invalid presentation timing at packet ${index}`);
     return pts + duration;
   }));
+}
+
+function sameDurations(source, result, label) {
+  assert.ok(result, `${label}: output track missing`);
+  assert.equal(result.mdia.mdhd.timescale, source.mdia.mdhd.timescale, `${label}: sample timescale changed`);
+  assert.equal(result.samples.length, source.samples.length, `${label}: duration sample count`);
+  source.samples.forEach((sample, index) => {
+    assert.equal(result.samples[index].duration, sample.duration, `${label}: sample ${index} duration changed`);
+  });
 }
 
 async function verifyPair(name, videoPath, audioPath, { expectBFrames = true } = {}) {
@@ -113,21 +121,15 @@ async function verifyPair(name, videoPath, audioPath, { expectBFrames = true } =
   const sourceAudioPackets = packets(audioPath, 'a:0');
   const sourceTracks = [[sourceVideoPackets, videoInput.moov.traks[0], `${name} video`],
     [sourceAudioPackets, audioInput.moov.traks[0], `${name} audio`]];
-  const sourcePresentationEnd = Math.max(...sourceTracks.map(([source, track, label]) => {
-    const end = presentationEnd(source, track, label);
-    // Exercise the old-FFprobe fallback even when local FFprobe reports duration.
-    const omitted = source.map(({ duration_time, ...packet }) => packet);
-    const fallbackEnd = presentationEnd(omitted, track, label);
-    assert.ok(Math.abs(end - fallbackEnd) <= 0.000001 + 1 / track.mdia.mdhd.timescale,
-      `${label}: MP4 sample-duration fallback changed presentation end`);
-    return end;
-  }));
+  const sourcePresentationEnd = Math.max(...sourceTracks.map(([source, track, label]) => presentationEnd(source, track, label)));
   assert.ok(Math.abs(Number(result.format.duration) - sourcePresentationEnd) <= 0.001001,
     `presentation duration changed: ${sourcePresentationEnd} -> ${result.format.duration}`);
   sameSamples(sourceVideoPackets, packets(resultPath, 'v:0'),
     videoInput.moov.traks[0].mdia.mdhd.timescale, `${name} video`);
   sameSamples(sourceAudioPackets, packets(resultPath, 'a:0'),
     audioInput.moov.traks[0].mdia.mdhd.timescale, `${name} audio`);
+  sameDurations(videoInput.moov.traks[0], parsed.moov.traks.find(track => track.mdia.hdlr.handler === 'vide'), `${name} video`);
+  sameDurations(audioInput.moov.traks[0], parsed.moov.traks.find(track => track.mdia.hdlr.handler === 'soun'), `${name} audio`);
   // Decode every frame and every audio sample, with any FFmpeg error fatal.
   ff(['-i', resultPath, '-map', '0:v:0', '-map', '0:a:0', '-f', 'null', '-']);
   const seek = Math.max(0.5, Number(result.format.duration) * 0.65);
@@ -138,7 +140,8 @@ async function verifyPair(name, videoPath, audioPath, { expectBFrames = true } =
     audio: { codec: audio.codec_name, frames: Number(audio.nb_frames), sampleRate: Number(audio.sample_rate),
       channels: audio.channels, start: Number(audio.start_time) },
     checks: ['both tracks', 'fast-start ordinary MP4', 'all compressed packet hashes unchanged',
-      'all DTS/PTS preserved within source tick and movie edit rounding', 'full decode', 'seek decode'] };
+      'all DTS/PTS preserved within source tick and movie edit rounding', 'all MP4 sample durations and timescales unchanged',
+      'presentation endpoint preserved', 'full decode', 'seek decode'] };
 }
 
 const master = path.join(evidence, 'fixture-master.mp4');
