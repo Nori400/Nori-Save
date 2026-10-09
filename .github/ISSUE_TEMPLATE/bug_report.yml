@@ -1,0 +1,40 @@
+name: 问题报告
+description: 报告 Nori Save 的视频、图片检索、保存或界面问题
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请勿提交 Cookie、密码、临时签名媒体地址或真实下载文件。
+        安全问题请参照仓库中的 SECURITY.md 私密报告。
+  - type: input
+    id: versions
+    attributes:
+      label: 扩展、浏览器与系统版本
+      placeholder: Nori Save 版本 / Chrome 或 Edge 版本 / 操作系统
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: 发生了什么
+      description: 描述实际结果，以及你期望的结果。
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 包含使用的入口（链接、当前页视频或当前页图片）、来源网站、所选清晰度或文件格式，以及操作顺序。可选填写公开网页链接，请勿填临时媒体直链。
+    validations:
+      required: true
+  - type: input
+    id: format
+    attributes:
+      label: 来源与文件格式
+      placeholder: 例如 X / MP4、Dailymotion / HLS、当前页图片 / PNG；不确定也可以留空。
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 错误信息或截图
+      description: 可选。请先移除账号信息、临时签名地址和本地路径中的个人信息。
