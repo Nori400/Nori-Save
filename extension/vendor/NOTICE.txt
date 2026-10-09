@@ -1,0 +1,9 @@
+MP4Box.js 2.4.1
+Copyright (c) 2012. Telecom ParisTech/TSI/MM/GPAC Cyril Concolato.
+Source: https://github.com/gpac/mp4box.js
+License: BSD-3-Clause, reproduced in MP4Box-LICENSE.txt.
+
+The prebuilt ESM distribution from npm mp4box@2.4.1 is vendored locally.
+mp4box.all.mjs is renamed mp4box.mjs; source-map comments are removed.
+The two companion ESM chunks are unchanged apart from source-map comments.
+No remote scripts, eval, or runtime package installation are used.

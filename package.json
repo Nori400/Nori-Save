@@ -1,0 +1,22 @@
+{
+  "name": "nori-save",
+  "private": true,
+  "version": "1.2.0",
+  "type": "module",
+  "scripts": {
+    "test": "node tools/test-remux.mjs && node tools/test-hls.mjs && node --test tools/test-source.mjs tools/test-direct.mjs tools/test-links.mjs tools/test-x.mjs tools/test-public-sites.mjs tools/test-media.mjs",
+    "test:remux": "node tools/test-remux.mjs",
+    "test:browser": "node tools/check-extension.mjs",
+    "test:live": "node tools/check-live.mjs",
+    "icons": "node tools/generate-icons.mjs",
+    "package": "node tools/package.mjs",
+    "test:common": "node tools/check-common.mjs",
+    "test:page": "node tools/check-page-media.mjs",
+    "test:hls-browser": "node tools/check-hls-extension.mjs"
+  },
+  "devDependencies": {
+    "mp4box": "2.4.1",
+    "playwright": "1.62.1",
+    "sharp": "0.35.5"
+  }
+}

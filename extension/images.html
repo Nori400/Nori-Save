@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>当前页图片 · Nori Save</title>
+    <link rel="stylesheet" href="images.css" />
+    <script type="module" src="images.js"></script>
+  </head>
+  <body>
+    <header class="page-header">
+      <div class="brand"><img src="icons/icon.svg" width="32" height="32" alt="" /><span>Nori Save</span></div>
+      <span class="header-label">当前页图片</span>
+    </header>
+    <main class="gallery-layout">
+      <div class="page-intro">
+        <div><div class="overline">IMAGES, FROM YOUR PAGE</div><h1 id="page-title">当前页图片</h1><a id="page-source" class="page-source" href="#" target="_blank" rel="noopener noreferrer" hidden></a></div>
+        <button id="refresh-images" class="button secondary" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16 7a6.5 6.5 0 1 0 .2 5M16 3v4h-4" /></svg>重新检索</button>
+      </div>
+
+      <section class="toolbar" aria-label="图片选择与保存">
+        <div class="selection-tools"><button id="select-all" class="text-button" type="button" disabled>全选</button><span class="toolbar-divider" aria-hidden="true"></span><button id="clear-selection" class="text-button" type="button" disabled>清空</button><span id="selection-count" class="selection-count" role="status" aria-live="polite">尚未选择</span></div>
+        <div class="save-tools"><label for="size-filter" class="visually-hidden">图片尺寸筛选</label><select id="size-filter" disabled><option value="0">全部图片</option><option value="128">短边 ≥ 128 px</option><option value="256">短边 ≥ 256 px</option><option value="512">短边 ≥ 512 px</option></select><button id="save-selected" class="button primary" type="button" disabled><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v10m-4-4 4 4 4-4M4 13v4h12v-4" /></svg><span id="save-selected-label">保存已选</span></button></div>
+      </section>
+
+      <p id="image-summary" class="image-summary" role="status" aria-live="polite">正在读取当前页面的图片…</p>
+      <section id="batch-progress" class="batch-progress" aria-label="图片保存进度" hidden><div class="batch-heading"><span id="batch-status" role="status" aria-live="polite"></span><button id="open-image-downloads" class="text-button" type="button">查看下载记录</button></div><div class="progress-track" role="progressbar" aria-label="图片保存进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="batch-progress-bar"></div></div><p id="batch-errors" class="batch-errors" role="alert" hidden></p></section>
+      <section id="images-loading" class="loading-state" aria-label="正在检索图片" aria-busy="true"><div class="spinner" aria-hidden="true"></div><p>正在检索当前页图片…</p></section>
+      <section id="images-empty" class="empty-state" hidden><div class="empty-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="7" y="6" width="34" height="36" rx="7"/><circle cx="18" cy="17" r="3"/><path d="m8 35 10-10 7 7 8-12 8 15"/></svg></div><h2 id="empty-title">没有找到图片</h2><p id="empty-description">只检索当前网页已经加载的图片。可以滚动来源页加载更多，再重新检索。</p><button id="retry-images" class="button secondary" type="button">重新检索</button></section>
+      <section id="image-grid" class="image-grid" aria-label="当前页图片" hidden></section>
+      <p class="scope-note">只列出当前页面已有的图片资源。滚动来源页加载更多后，可以重新检索。</p>
+    </main>
+
+    <dialog id="image-preview" class="image-preview" aria-labelledby="preview-title"><div class="preview-heading"><p id="preview-title">图片预览</p><button id="close-preview" class="preview-close" type="button" aria-label="关闭预览"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button></div><div class="preview-stage"><img id="preview-image" alt="" /></div><p id="preview-details" class="preview-details"></p></dialog>
+    <footer class="page-footer"><span>Nori Save</span><span>图片留在你的电脑</span></footer>
+  </body>
+</html>

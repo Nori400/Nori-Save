@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Nori Save",
+  "version": "1.2.0",
+  "description": "粘贴视频链接，或分别检索当前页视频和图片，在浏览器本地保存。",
+  "minimum_chrome_version": "120",
+  "permissions": ["activeTab", "scripting", "storage", "downloads", "webRequest", "declarativeNetRequestWithHostAccess"],
+  "host_permissions": ["https://*/*", "http://*/*"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "icons": { "16": "icons/icon-16.png", "32": "icons/icon-32.png", "48": "icons/icon-48.png", "128": "icons/icon-128.png" },
+  "action": { "default_popup": "popup.html", "default_title": "Nori Save", "default_icon": { "16": "icons/icon-16.png", "32": "icons/icon-32.png" } },
+  "content_security_policy": { "extension_pages": "script-src 'self'; object-src 'none'; base-uri 'none'" }
+}

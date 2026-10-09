@@ -1,0 +1,178 @@
+{
+  "fixture": {
+    "kind": "synthetic",
+    "description": "Synthetic regression data modeled on DASH response structure. Not a current API response; URLs are invented and must not be downloaded."
+  },
+  "response": {
+    "code": 0,
+    "message": "0",
+    "ttl": 1,
+    "data": {
+      "from": "local",
+      "result": "suee",
+      "message": "",
+      "quality": 16,
+      "format": "mp4",
+      "timelength": 199400,
+      "accept_format": "mp4",
+      "accept_description": [
+        "流畅 360P"
+      ],
+      "accept_quality": [
+        16
+      ],
+      "video_codecid": 7,
+      "support_formats": [
+        {
+          "quality": 16,
+          "format": "mp4",
+          "new_description": "360P 流畅",
+          "display_desc": "360P",
+          "codecs": [
+            "avc1.64001E",
+            "hev1.1.6.L120.90",
+            "av01.0.00M.08.0.110.01.01.01.0"
+          ]
+        }
+      ],
+      "dash": {
+        "duration": 200,
+        "minBufferTime": 1.5,
+        "min_buffer_time": 1.5,
+        "video": [
+          {
+            "id": 16,
+            "bandwidth": 155201,
+            "mimeType": "video/mp4",
+            "mime_type": "video/mp4",
+            "codecs": "hev1.1.6.L120.90",
+            "width": 512,
+            "height": 288,
+            "frameRate": "15.015",
+            "frame_rate": "15.015",
+            "sar": "1105:1104",
+            "startWithSap": 1,
+            "start_with_sap": 1,
+            "SegmentBase": {
+              "Initialization": "0-1126",
+              "indexRange": "1127-1638"
+            },
+            "segment_base": {
+              "initialization": "0-1126",
+              "index_range": "1127-1638"
+            },
+            "codecid": 12,
+            "baseUrl": "https://cdn.bilivideo.com/synthetic/279786/279786_da3-1-30016-hevc.m4s?fixture=synthetic",
+            "base_url": "https://cdn.bilivideo.com/synthetic/279786/279786_da3-1-30016-hevc.m4s?fixture=synthetic",
+            "backupUrl": [
+              "https://example.akamaized.net/synthetic/279786/279786_da3-1-30016-hevc.m4s?fixture=synthetic"
+            ],
+            "backup_url": [
+              "https://example.akamaized.net/synthetic/279786/279786_da3-1-30016-hevc.m4s?fixture=synthetic"
+            ]
+          },
+          {
+            "id": 16,
+            "bandwidth": 226528,
+            "mimeType": "video/mp4",
+            "mime_type": "video/mp4",
+            "codecs": "avc1.64001E",
+            "width": 512,
+            "height": 288,
+            "frameRate": "15.152",
+            "frame_rate": "15.152",
+            "sar": "1105:1104",
+            "startWithSap": 1,
+            "start_with_sap": 1,
+            "SegmentBase": {
+              "Initialization": "0-1031",
+              "indexRange": "1032-1543"
+            },
+            "segment_base": {
+              "initialization": "0-1031",
+              "index_range": "1032-1543"
+            },
+            "codecid": 7,
+            "baseUrl": "https://cdn.bilivideo.com/synthetic/279786/279786_da3-1-30016.m4s?fixture=synthetic",
+            "base_url": "https://cdn.bilivideo.com/synthetic/279786/279786_da3-1-30016.m4s?fixture=synthetic",
+            "backupUrl": [
+              "https://example.akamaized.net/synthetic/279786/279786_da3-1-30016.m4s?fixture=synthetic"
+            ],
+            "backup_url": [
+              "https://example.akamaized.net/synthetic/279786/279786_da3-1-30016.m4s?fixture=synthetic"
+            ]
+          },
+          {
+            "id": 16,
+            "bandwidth": 205640,
+            "mimeType": "video/mp4",
+            "mime_type": "video/mp4",
+            "codecs": "av01.0.00M.08.0.110.01.01.01.0",
+            "width": 512,
+            "height": 288,
+            "frameRate": "15.009",
+            "frame_rate": "15.009",
+            "sar": "1105:1104",
+            "startWithSap": 1,
+            "start_with_sap": 1,
+            "SegmentBase": {
+              "Initialization": "0-987",
+              "indexRange": "1052-1563"
+            },
+            "segment_base": {
+              "initialization": "0-987",
+              "index_range": "1052-1563"
+            },
+            "codecid": 13,
+            "baseUrl": "https://cdn.bilivideo.com/synthetic/279786/279786_da3-1-30016-av1.m4s?fixture=synthetic",
+            "base_url": "https://cdn.bilivideo.com/synthetic/279786/279786_da3-1-30016-av1.m4s?fixture=synthetic",
+            "backupUrl": [
+              "https://example.akamaized.net/synthetic/279786/279786_da3-1-30016-av1.m4s?fixture=synthetic"
+            ],
+            "backup_url": [
+              "https://example.akamaized.net/synthetic/279786/279786_da3-1-30016-av1.m4s?fixture=synthetic"
+            ]
+          }
+        ],
+        "audio": [
+          {
+            "id": 30216,
+            "bandwidth": 50806,
+            "mimeType": "audio/mp4",
+            "mime_type": "audio/mp4",
+            "codecs": "mp4a.40.2",
+            "width": 0,
+            "height": 0,
+            "frameRate": "",
+            "frame_rate": "",
+            "sar": "",
+            "startWithSap": 0,
+            "start_with_sap": 0,
+            "SegmentBase": {
+              "Initialization": "0-932",
+              "indexRange": "933-1444"
+            },
+            "segment_base": {
+              "initialization": "0-932",
+              "index_range": "933-1444"
+            },
+            "codecid": 0,
+            "baseUrl": "https://cdn.bilivideo.com/synthetic/279786/279786_da3-1-30216.m4s?fixture=synthetic",
+            "base_url": "https://cdn.bilivideo.com/synthetic/279786/279786_da3-1-30216.m4s?fixture=synthetic",
+            "backupUrl": [
+              "https://example.akamaized.net/synthetic/279786/279786_da3-1-30216.m4s?fixture=synthetic"
+            ],
+            "backup_url": [
+              "https://example.akamaized.net/synthetic/279786/279786_da3-1-30216.m4s?fixture=synthetic"
+            ]
+          }
+        ],
+        "dolby": {
+          "type": 0,
+          "audio": null
+        },
+        "flac": null
+      }
+    }
+  }
+}

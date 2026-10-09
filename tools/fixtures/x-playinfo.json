@@ -1,0 +1,36 @@
+{
+  "__typename": "Tweet",
+  "id_str": "1900000000000000000",
+  "text": "公开演示视频",
+  "user": { "screen_name": "demo" },
+  "mediaDetails": [
+    {
+      "type": "video",
+      "media_url_https": "https://pbs.twimg.com/ext_tw_video_thumb/1900000000000000001/pu/img/demo.jpg",
+      "ext_media_availability": { "status": "Available" },
+      "video_info": {
+        "duration_millis": 4500,
+        "variants": [
+          { "content_type": "application/x-mpegURL", "url": "https://video.twimg.com/ext_tw_video/1900000000000000001/pu/pl/demo.m3u8" },
+          { "content_type": "video/mp4", "bitrate": 432000, "url": "https://video.twimg.com/ext_tw_video/1900000000000000001/pu/vid/320x320/low.mp4" },
+          { "content_type": "video/mp4", "bitrate": 1280000, "url": "https://video.twimg.com/ext_tw_video/1900000000000000001/pu/vid/720x720/high.mp4" }
+        ]
+      }
+    },
+    {
+      "type": "photo",
+      "media_url_https": "https://pbs.twimg.com/media/demo-photo.jpg"
+    },
+    {
+      "type": "video",
+      "media_url_https": "https://pbs.twimg.com/ext_tw_video_thumb/1900000000000000003/pu/img/demo.jpg",
+      "ext_media_availability": { "status": "Available" },
+      "video_info": {
+        "duration_millis": 8000,
+        "variants": [
+          { "content_type": "video/mp4", "bitrate": 950000, "url": "https://video.twimg.com/ext_tw_video/1900000000000000003/pu/vid/480x852/second.mp4" }
+        ]
+      }
+    }
+  ]
+}

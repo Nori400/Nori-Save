@@ -1,0 +1,137 @@
+{
+  "fixture": {
+    "kind": "synthetic",
+    "description": "Invented public test metadata for a ten-part video. No uploader, personal information or source title is included."
+  },
+  "initialState": {
+    "aid": 1,
+    "bvid": "BV1xx411c7mD",
+    "cid": 279786,
+    "p": 1,
+    "videoData": {
+      "bvid": "BV1xx411c7mD",
+      "aid": 1,
+      "cid": 279786,
+      "videos": 10,
+      "title": "公开视频示例",
+      "pic": "",
+      "duration": 2044,
+      "rights": {
+        "download": 1,
+        "pay": 0
+      },
+      "pages": [
+        {
+          "cid": 279786,
+          "page": 1,
+          "part": "示例分P 1",
+          "duration": 199,
+          "dimension": {
+            "width": 512,
+            "height": 288,
+            "rotate": 0
+          }
+        },
+        {
+          "cid": 279787,
+          "page": 2,
+          "part": "示例分P 2",
+          "duration": 201,
+          "dimension": {
+            "width": 512,
+            "height": 288,
+            "rotate": 0
+          }
+        },
+        {
+          "cid": 279788,
+          "page": 3,
+          "part": "示例分P 3",
+          "duration": 202,
+          "dimension": {
+            "width": 512,
+            "height": 288,
+            "rotate": 0
+          }
+        },
+        {
+          "cid": 279789,
+          "page": 4,
+          "part": "示例分P 4",
+          "duration": 203,
+          "dimension": {
+            "width": 512,
+            "height": 288,
+            "rotate": 0
+          }
+        },
+        {
+          "cid": 279790,
+          "page": 5,
+          "part": "示例分P 5",
+          "duration": 204,
+          "dimension": {
+            "width": 512,
+            "height": 288,
+            "rotate": 0
+          }
+        },
+        {
+          "cid": 279791,
+          "page": 6,
+          "part": "示例分P 6",
+          "duration": 205,
+          "dimension": {
+            "width": 512,
+            "height": 288,
+            "rotate": 0
+          }
+        },
+        {
+          "cid": 279792,
+          "page": 7,
+          "part": "示例分P 7",
+          "duration": 206,
+          "dimension": {
+            "width": 512,
+            "height": 288,
+            "rotate": 0
+          }
+        },
+        {
+          "cid": 279793,
+          "page": 8,
+          "part": "示例分P 8",
+          "duration": 207,
+          "dimension": {
+            "width": 512,
+            "height": 288,
+            "rotate": 0
+          }
+        },
+        {
+          "cid": 279794,
+          "page": 9,
+          "part": "示例分P 9",
+          "duration": 208,
+          "dimension": {
+            "width": 512,
+            "height": 288,
+            "rotate": 0
+          }
+        },
+        {
+          "cid": 279795,
+          "page": 10,
+          "part": "示例分P 10",
+          "duration": 209,
+          "dimension": {
+            "width": 512,
+            "height": 288,
+            "rotate": 0
+          }
+        }
+      ]
+    }
+  }
+}

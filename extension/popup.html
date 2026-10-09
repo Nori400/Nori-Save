@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>Nori Save</title>
+    <link rel="stylesheet" href="popup.css" />
+    <script type="module" src="popup.js"></script>
+  </head>
+  <body>
+    <main class="popup">
+      <header class="app-header">
+        <div class="brand">
+          <img src="icons/icon.svg" width="34" height="34" alt="" />
+          <div><h1>Nori Save</h1><p>从一个链接，到你的电脑</p></div>
+        </div>
+        <button id="refresh-button" class="icon-button" type="button" aria-label="重新识别输入的链接" title="重新识别链接" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 8.5a8 8 0 1 0 .2 6.5M19.5 4v4.5H15" /></svg>
+        </button>
+      </header>
+
+      <div class="current-page-actions" aria-label="检索当前页面">
+        <button id="current-video-button" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4" width="15" height="12" rx="3"/><path d="m8 7 5 3-5 3V7Z"/></svg>当前页视频</button>
+        <button id="current-images-button" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="3" width="15" height="14" rx="3"/><circle cx="7" cy="7.5" r="1.2"/><path d="m3 14 4-4 3 3 3-4 4 5"/></svg>当前页图片</button>
+      </div>
+      <p id="entry-status" class="entry-status" role="status" aria-live="polite" hidden></p>
+
+      <form id="link-form" class="link-form" novalidate>
+        <label class="field-label" for="link-input">视频链接或分享文字</label>
+        <div class="link-entry">
+          <input id="link-input" type="text" inputmode="url" autocomplete="off" spellcheck="false" placeholder="粘贴视频链接或分享文字" aria-describedby="link-help" />
+          <button id="inspect-link-button" type="submit">识别</button>
+        </div>
+        <p id="link-help" class="link-help">X、Vimeo、Dailymotion、Reddit 与普通网页 · 按实际可下载资源识别</p>
+      </form>
+
+      <section id="loading-state" class="loading-state" aria-label="正在识别链接" aria-busy="true" hidden>
+        <div class="skeleton skeleton-cover"></div>
+        <div class="skeleton skeleton-title"></div>
+        <div class="skeleton skeleton-line"></div>
+        <p class="loading-caption"><span class="spinner" aria-hidden="true"></span><span id="loading-text">正在识别链接…</span></p>
+        <p id="loading-explanation" class="loading-explanation">会打开来源页，查找网页实际提供的视频资源。</p>
+      </section>
+
+      <section id="empty-state" class="empty-state">
+        <div class="empty-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="m20 18 6-6a8 8 0 0 1 11 11l-6 6M28 30l-6 6a8 8 0 0 1-11-11l6-6m1 11 12-12" /></svg></div>
+        <h2 id="empty-title">从页面或链接开始</h2>
+        <p id="empty-description">检索当前页的视频和图片，或粘贴视频链接。两个入口分开保存，各取所需。</p>
+        <button id="retry-inspect-button" class="secondary-button" type="button" hidden>重新识别</button>
+      </section>
+
+      <section id="video-content" hidden aria-labelledby="video-title">
+        <article class="video-card">
+          <div class="cover-wrap"><img id="video-cover" alt="视频封面" /><span id="video-duration" class="duration" hidden></span></div>
+          <div class="video-info">
+            <div class="eyebrow">已识别视频 <span id="video-id"></span></div>
+            <h2 id="video-title"></h2>
+            <p id="video-part" class="part-description" hidden></p>
+          </div>
+        </article>
+
+        <div class="download-settings">
+          <label class="field-label" for="quality-select">清晰度</label>
+          <div class="select-wrap"><select id="quality-select" aria-describedby="quality-detail"></select><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 8 4 4 4-4" /></svg></div>
+          <p id="quality-detail" class="quality-detail"></p>
+          <label class="save-preference"><input id="save-as" type="checkbox" /><span>下载前选择保存位置</span></label>
+        </div>
+
+        <p id="warning-message" class="notice" hidden></p>
+        <p id="action-error" class="notice error-notice" role="alert" hidden></p>
+        <button id="download-button" class="primary-button" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v4h14v-4" /></svg><span id="download-label">下载视频</span></button>
+        <p id="action-status" class="action-status" role="status" aria-live="polite"></p>
+      </section>
+
+      <footer class="app-footer"><span class="footer-dot" aria-hidden="true"></span>未发现资源？在来源页播放几秒，再重新识别</footer>
+    </main>
+  </body>
+</html>
