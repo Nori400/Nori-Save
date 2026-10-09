@@ -61,6 +61,24 @@ function sameSamples(sourcePackets, resultPackets, timescale, label) {
   });
 }
 
+function presentationEnd(sourcePackets, track, label) {
+  const timescale = track.mdia.mdhd.timescale;
+  assert.ok(Number.isFinite(timescale) && timescale > 0, `${label}: invalid source timescale`);
+  assert.equal(sourcePackets.length, track.samples.length, `${label}: source packet/sample count`);
+  assert.ok(sourcePackets.length > 0, `${label}: source has no packets`);
+  return Math.max(...sourcePackets.map((packet, index) => {
+    const pts = Number(packet.pts_time);
+    // Older FFprobe versions omit duration_time for fragmented MP4 packets.
+    // The source MP4 sample table still carries their exact duration in ticks;
+    // FFprobe PTS retains any edit-list/timeline offset for presentation end.
+    const duration = packet.duration_time == null
+      ? track.samples[index].duration / timescale : Number(packet.duration_time);
+    assert.ok(Number.isFinite(pts) && Number.isFinite(duration) && duration >= 0,
+      `${label}: invalid presentation timing at packet ${index}`);
+    return pts + duration;
+  }));
+}
+
 async function verifyPair(name, videoPath, audioPath, { expectBFrames = true } = {}) {
   const progress = [];
   const videoBuffer = await load(videoPath);
@@ -93,8 +111,17 @@ async function verifyPair(name, videoPath, audioPath, { expectBFrames = true } =
   assert.equal(audio.channels, sourceAudio.channels);
   const sourceVideoPackets = packets(videoPath, 'v:0');
   const sourceAudioPackets = packets(audioPath, 'a:0');
-  const sourcePresentationEnd = Math.max(...[...sourceVideoPackets, ...sourceAudioPackets]
-    .map(packet => Number(packet.pts_time) + Number(packet.duration_time)));
+  const sourceTracks = [[sourceVideoPackets, videoInput.moov.traks[0], `${name} video`],
+    [sourceAudioPackets, audioInput.moov.traks[0], `${name} audio`]];
+  const sourcePresentationEnd = Math.max(...sourceTracks.map(([source, track, label]) => {
+    const end = presentationEnd(source, track, label);
+    // Exercise the old-FFprobe fallback even when local FFprobe reports duration.
+    const omitted = source.map(({ duration_time, ...packet }) => packet);
+    const fallbackEnd = presentationEnd(omitted, track, label);
+    assert.ok(Math.abs(end - fallbackEnd) <= 0.000001 + 1 / track.mdia.mdhd.timescale,
+      `${label}: MP4 sample-duration fallback changed presentation end`);
+    return end;
+  }));
   assert.ok(Math.abs(Number(result.format.duration) - sourcePresentationEnd) <= 0.001001,
     `presentation duration changed: ${sourcePresentationEnd} -> ${result.format.duration}`);
   sameSamples(sourceVideoPackets, packets(resultPath, 'v:0'),
